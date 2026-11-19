@@ -43,7 +43,7 @@ const APPS = [
   { id: 'music', name: 'our music', sub: 'songs & playlists', w: 380, h: 520, render: appMusic },
   { id: 'arcade', name: 'arcade', sub: 'mini games', w: 460, h: 480, render: appArcade },
   { id: 'letters', name: 'letters', sub: 'open when…', w: 500, h: 460, render: appLetters },
-  { id: 'classified', name: 'classified', sub: 'secret folders', w: 440, h: 400, render: appClassified },
+  { id: 'classified', name: 'classified', sub: 'secret folders', w: 440, h: 560, render: appClassified },
   { id: 'dates', name: 'our dates', sub: 'special days', w: 440, h: 480, render: appDates },
   { id: 'notes', name: 'notes', sub: 'little messages', w: 520, h: 420, render: appNotes },
   { id: 'surprise', name: 'surprise.exe', sub: 'random surprises', w: 380, h: 380, render: appSurprise },
@@ -562,15 +562,34 @@ function appLetters(b) { letterList(b, C.letters, 'letters', 'open when… (no p
 
 function appClassified(b) {
   if (ses.get('unlocked')) return letterList(b, C.secrets, 'classified 🔓', 'access granted. top secret. eyes only: inder.');
-  b.innerHTML = `<div class="lock-screen"><div class="big">🔒</div><div class="app-h">restricted access</div><div class="app-sub">enter passcode · hint: ${esc(C.classifiedHint)}</div><input class="pin-input" id="pin" type="tel" autocomplete="off" maxlength="8" inputmode="numeric" placeholder="••••"><button class="btn-pink" id="pu">unlock</button><p class="app-sub" id="pm" style="margin-top:12px"></p></div>`;
-  let tries = 0;
+  const PIN = String(C.classifiedPin), len = PIN.length;
+  b.innerHTML = `<div class="lock-screen"><div class="big">🔒</div><div class="app-h">restricted access</div><div class="app-sub">enter passcode · hint: ${esc(C.classifiedHint)}</div>
+    <div class="pin-dots" id="pd">${'<i></i>'.repeat(len)}</div>
+    <div class="keypad">${[1, 2, 3, 4, 5, 6, 7, 8, 9, '⌫', 0, '♥'].map(k => `<button data-k="${k}">${k}</button>`).join('')}</div>
+    <p class="app-sub" id="pm" style="margin-top:10px"></p></div>`;
+  let tries = 0, v = '';
+  const dots = () => $('#pd', b).querySelectorAll('i').forEach((d, k) => d.classList.toggle('on', k < v.length));
   const go = () => {
-    const v = $('#pin', b).value.replace(/[^0-9]/g, '');
-    if (v === String(C.classifiedPin)) { ses.set('unlocked', 1); confetti(70); notify('🔓', 'classified', 'access granted. welcome, agent inder.'); appClassified(b); }
-    else { tries++; const p = $('#pin', b); p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); p.value = ''; $('#pm', b).textContent = ['wrong! (but cute attempt)', 'nope. think harder ♥', 'hint: it\'s our day', `psst… it's ${C.classifiedPin}`][Math.min(tries - 1, 3)]; }
+    if (v === PIN) { ses.set('unlocked', 1); confetti(70); notify('🔓', 'classified', 'access granted. welcome, agent inder.'); document.removeEventListener('keydown', kb); appClassified(b); return; }
+    tries++; const p = $('#pd', b); p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); v = ''; dots();
+    $('#pm', b).textContent = ['wrong! (but cute attempt)', 'nope. think harder ♥', 'hint: it\'s our day', `psst… it's ${PIN}`][Math.min(tries - 1, 3)];
   };
-  $('#pu', b).onclick = go; $('#pin', b).onkeydown = e => e.key === 'Enter' && go();
-  setTimeout(() => $('#pin', b)?.focus(), 300);
+  const press = k => {
+    if (k === '⌫') v = v.slice(0, -1);
+    else if (k === '♥') { if (v) go(); return; }
+    else if (v.length < len) v += k;
+    dots(); if (v.length === len) setTimeout(go, 180);
+  };
+  $('.keypad', b).onclick = e => { const k = e.target.closest('button'); if (k) { press(k.dataset.k); k.animate([{ transform: 'scale(.85)' }, { transform: 'scale(1)' }], { duration: 200 }); } };
+  // physical keyboard still works while this window is in front
+  const w = b.closest('.win');
+  const kb = e => {
+    if (!document.body.contains(b)) return document.removeEventListener('keydown', kb);
+    if (!w.classList.contains('active') || w.classList.contains('hidden')) return;
+    if (/^[0-9]$/.test(e.key)) press(e.key); else if (e.key === 'Backspace') press('⌫'); else if (e.key === 'Enter') press('♥'); else return;
+    e.preventDefault();
+  };
+  document.addEventListener('keydown', kb);
 }
 
 function appDates(b) {

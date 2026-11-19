@@ -190,6 +190,13 @@ body.theme-night .reason{color:var(--p300)}
 .pin-input{margin:12px auto;display:block;width:200px;text-align:center;padding:10px;border-radius:12px;border:2px solid var(--p300);background:var(--p50);font-size:18px;color:var(--ink);letter-spacing:6px;outline:none}
 .pin-input:focus{border-color:var(--p500);box-shadow:0 0 0 4px var(--p100)}
 .shake{animation:shake .4s}
+.pin-dots{display:flex;gap:14px;justify-content:center;margin:14px 0}
+.pin-dots i{width:16px;height:16px;border-radius:50%;border:2.5px solid var(--p400);transition:.2s var(--ease)}
+.pin-dots i.on{background:var(--p500);transform:scale(1.2)}
+.keypad{display:grid;grid-template-columns:repeat(3,58px);gap:10px;justify-content:center}
+.keypad button{height:50px;border-radius:16px;background:var(--p100);border:2px solid var(--p200);font-size:20px;font-weight:600;color:var(--ink);transition:background .2s,transform .2s var(--ease);touch-action:manipulation}
+.keypad button:hover{background:var(--p200);transform:translateY(-2px)}
+.keypad button:last-child{background:var(--p400);color:#fff;border-color:var(--p500)}
 .timeline{position:relative;padding-left:22px}
 .timeline::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:3px;background:var(--p200);border-radius:3px}
 .tl{position:relative;margin-bottom:16px;padding:10px 14px;border-radius:14px;background:var(--p50);border:2px solid var(--p100);animation:slideL .5s var(--ease) both}
