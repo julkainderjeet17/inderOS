@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inderOS v1.0</title>
+<meta name="description" content="an operating system made with an unreasonable amount of love.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=VT323&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- BOOT -->
+  <div id="boot" class="screen">
+    <div class="boot-inner">
+      <div class="boot-heart">♥</div>
+      <div class="boot-title">inderOS <span>v1.0</span></div>
+      <div class="boot-sub">an operating system made with an unreasonable amount of love.</div>
+      <div class="boot-bar"><div class="boot-fill"></div></div>
+      <div class="boot-log" id="bootLog"></div>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="login" class="screen hidden">
+    <div class="login-card glass">
+      <div class="avatar">🌸</div>
+      <div class="login-name">inder</div>
+      <div class="login-hint">the only user on this computer</div>
+      <button id="loginBtn" class="btn-pink">♥ log in</button>
+      <div class="login-foot">no password needed. you already have the key to everything here.</div>
+    </div>
+  </div>
+
+  <!-- DESKTOP -->
+  <div id="desktop" class="hidden">
+    <div id="wallpaper"></div>
+    <div id="floaters"></div>
+    <div id="icons"></div>
+    <div id="widgets"></div>
+    <div id="windows"></div>
+    <div id="toasts"></div>
+
+    <div id="startMenu" class="glass hidden"></div>
+    <div id="notifCenter" class="glass hidden"></div>
+    <div id="ctxMenu" class="glass hidden"></div>
+
+    <div id="taskbar" class="glass">
+      <button id="startBtn" class="start-btn"><span>♥</span> inder</button>
+      <div id="tasks"></div>
+      <div class="tray">
+        <button id="bellBtn" class="tray-btn" title="notifications">🔔<i id="bellDot"></i></button>
+        <div id="clock"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sparkles"></div>
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
