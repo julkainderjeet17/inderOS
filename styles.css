@@ -185,6 +185,7 @@ body.theme-night .reason{color:var(--p300)}
 .card small{color:var(--ink2)}
 .envelope{background:linear-gradient(135deg,var(--p100),var(--p200))}
 .letter{background:#fffdf8 repeating-linear-gradient(transparent 0 29px,#f6c7da 29px 30px);padding:20px 26px;border-radius:8px;font-family:'Caveat';font-size:23px;line-height:30px;color:#5a2a41;white-space:pre-wrap;animation:unfold .6s var(--ease);box-shadow:0 8px 20px -10px rgba(150,40,90,.4)}
+.letter-img{display:block;width:min(100%,320px);margin:14px auto 4px;border:8px solid #fff;border-bottom-width:26px;border-radius:4px;box-shadow:0 10px 24px -8px rgba(150,40,90,.45);transform:rotate(-2deg);animation:pop .6s .2s var(--ease) both}
 .lock-screen{text-align:center;padding:20px}
 .lock-screen .big{font-size:56px;animation:float 3s ease-in-out infinite}
 .pin-input{margin:12px auto;display:block;width:200px;text-align:center;padding:10px;border-radius:12px;border:2px solid var(--p300);background:var(--p50);font-size:18px;color:var(--ink);letter-spacing:6px;outline:none}

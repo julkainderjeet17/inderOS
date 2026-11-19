@@ -554,7 +554,7 @@ function letterList(b, items, title, sub) {
   b.innerHTML = `<div class="app-h">${title}</div><div class="app-sub">${sub}</div><div class="cards">${items.map((l, k) => `<button class="card envelope" data-k="${k}" style="animation:pop .4s ${k * .06}s var(--ease) both"><div class="e">${l.emoji}</div><b>${esc(l.title)}</b><small>✉ sealed with love</small></button>`).join('')}</div>`;
   b.querySelectorAll('.card').forEach(c => c.onclick = e => {
     const l = items[c.dataset.k]; burst(e.clientX, e.clientY, 8, ['💌', '♥', '✨']);
-    b.innerHTML = `<button class="btn-soft" id="lb" style="margin-bottom:12px">← back</button><div class="letter"><b style="font-size:26px">${l.emoji} ${esc(l.title)}</b>\n\n${esc(l.body)}</div>`;
+    b.innerHTML = `<button class="btn-soft" id="lb" style="margin-bottom:12px">← back</button><div class="letter"><b style="font-size:26px">${l.emoji} ${esc(l.title)}</b>\n\n${esc(l.body)}${l.img ? `<img class="letter-img" src="${esc(l.img)}" alt="">` : ''}</div>`;
     $('#lb', b).onclick = () => letterList(b, items, title, sub);
   });
 }

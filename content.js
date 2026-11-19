@@ -52,7 +52,7 @@ window.CONTENT = {
 
   // classified (unlocked with the PIN)
   secrets: [
-    { emoji: "🗝️", title: "the first thing i noticed", body: "your smile. obviously. it wasn't even close." },
+    { emoji: "🗝️", title: "the first thing i noticed", body: "your dimples. obviously. it wasn't even close.\n\ni've been a goner ever since." },
     { emoji: "📜", title: "things i never said out loud", body: "i think about our future more than i admit." },
     { emoji: "💍", title: "future_plans.txt", body: "[ access granted ]\n\nstep 1: keep making you happy\nstep 2: ...you'll find out ♥" }
   ],
