@@ -7,6 +7,11 @@ const store = {
   get(k, d) { try { const v = localStorage.getItem('inderOS.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set(k, v) { try { localStorage.setItem('inderOS.' + k, JSON.stringify(v)); } catch {} }
 };
+// session flags: falls back to memory if the browser blocks storage (e.g. Opera privacy settings)
+const ses = (() => { const mem = {}; return {
+  get(k) { try { return sessionStorage.getItem(k) ?? mem[k]; } catch { return mem[k]; } },
+  set(k, v) { mem[k] = String(v); try { sessionStorage.setItem(k, v); } catch {} },
+  del(k) { delete mem[k]; try { sessionStorage.removeItem(k); } catch {} } }; })();
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const rand = a => a[Math.floor(Math.random() * a.length)];
 
@@ -53,7 +58,7 @@ const APP = Object.fromEntries(APPS.map(a => [a.id, a]));
 const bootLines = ['loading heart.sys ...', 'mounting /memories ...', 'calibrating cuddles ...', 'installing butterflies ...', 'starting love.exe ...', 'welcome, inder ♥'];
 function boot() {
   const log = $('#bootLog'), fill = $('.boot-fill');
-  if (store.get('booted') && sessionStorage.getItem('skipBoot')) return showLogin(true);
+  if (store.get('booted') && ses.get('skipBoot')) return showLogin(true);
   let i = 0;
   const step = () => {
     if (i < bootLines.length) {
@@ -75,7 +80,7 @@ function showLogin(instant) {
 function login() {
   const l = $('#login'); if (l.classList.contains('fade')) return;
   l.classList.add('fade');
-  store.set('booted', true); sessionStorage.setItem('skipBoot', 1);
+  store.set('booted', true); ses.set('skipBoot', 1);
   setTimeout(() => { l.classList.add('hidden'); startDesktop(); }, 700);
 }
 
@@ -287,7 +292,7 @@ function logoff() {
   ov.style.background = 'color-mix(in srgb,var(--wall2) 70%,transparent)'; ov.style.backdropFilter = 'blur(8px)';
   document.body.appendChild(ov);
   $('#stay', ov).onclick = e => { burst(e.clientX, e.clientY, 20); ov.remove(); notify('🥰', 'yay', 'good choice.'); };
-  $('#go', ov).onclick = () => { sessionStorage.removeItem('skipBoot'); ov.remove(); location.reload(); };
+  $('#go', ov).onclick = () => { ses.del('skipBoot'); ov.remove(); location.reload(); };
 }
 const ncLog = [];
 function notify(icon, title, text) {
@@ -556,12 +561,12 @@ function letterList(b, items, title, sub) {
 function appLetters(b) { letterList(b, C.letters, 'letters', 'open when… (no peeking ahead. ok fine, you can peek.)'); }
 
 function appClassified(b) {
-  if (sessionStorage.getItem('unlocked')) return letterList(b, C.secrets, 'classified 🔓', 'access granted. top secret. eyes only: inder.');
+  if (ses.get('unlocked')) return letterList(b, C.secrets, 'classified 🔓', 'access granted. top secret. eyes only: inder.');
   b.innerHTML = `<div class="lock-screen"><div class="big">🔒</div><div class="app-h">restricted access</div><div class="app-sub">enter passcode · hint: ${esc(C.classifiedHint)}</div><input class="pin-input" id="pin" type="tel" autocomplete="off" maxlength="8" inputmode="numeric" placeholder="••••"><button class="btn-pink" id="pu">unlock</button><p class="app-sub" id="pm" style="margin-top:12px"></p></div>`;
   let tries = 0;
   const go = () => {
-    const v = $('#pin', b).value.trim();
-    if (v === C.classifiedPin) { sessionStorage.setItem('unlocked', 1); confetti(70); notify('🔓', 'classified', 'access granted. welcome, agent inder.'); appClassified(b); }
+    const v = $('#pin', b).value.replace(/[^0-9]/g, '');
+    if (v === String(C.classifiedPin)) { ses.set('unlocked', 1); confetti(70); notify('🔓', 'classified', 'access granted. welcome, agent inder.'); appClassified(b); }
     else { tries++; const p = $('#pin', b); p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); p.value = ''; $('#pm', b).textContent = ['wrong! (but cute attempt)', 'nope. think harder ♥', 'hint: it\'s our day', `psst… it's ${C.classifiedPin}`][Math.min(tries - 1, 3)]; }
   };
   $('#pu', b).onclick = go; $('#pin', b).onkeydown = e => e.key === 'Enter' && go();
