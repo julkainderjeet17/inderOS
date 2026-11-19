@@ -12,9 +12,9 @@ body.theme-night{--p50:#2b1424;--p100:#3a1b31;--p200:#5a2a4b;--p300:#8a3e70;--p4
 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
-body{font-family:'Fredoka',system-ui,sans-serif;color:var(--ink);background:var(--wall1);user-select:none;-webkit-font-smoothing:antialiased;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext y='18' font-size='18'%3E%F0%9F%92%97%3C/text%3E%3C/svg%3E") 4 4,auto}
+body{font-family:'Fredoka',system-ui,sans-serif;color:var(--ink);background:var(--wall1);-webkit-user-select:none;user-select:none;-webkit-font-smoothing:antialiased;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext y='18' font-size='18'%3E%F0%9F%92%97%3C/text%3E%3C/svg%3E") 4 4,auto}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
-input,textarea{font:inherit;color:inherit;user-select:text}
+input,textarea{font:inherit;color:inherit;-webkit-user-select:text;user-select:text;touch-action:manipulation}
 .hidden{display:none!important}
 .glass{background:color-mix(in srgb,var(--cream) 82%,transparent);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:2px solid var(--p200);box-shadow:var(--shadow)}
 .btn-pink{background:linear-gradient(180deg,var(--p300),var(--p500));color:#fff;padding:10px 22px;border-radius:999px;font-weight:600;box-shadow:0 6px 0 var(--p600),0 10px 24px -6px var(--p500);transition:transform .2s var(--ease),box-shadow .2s}
@@ -187,7 +187,7 @@ body.theme-night .reason{color:var(--p300)}
 .letter{background:#fffdf8 repeating-linear-gradient(transparent 0 29px,#f6c7da 29px 30px);padding:20px 26px;border-radius:8px;font-family:'Caveat';font-size:23px;line-height:30px;color:#5a2a41;white-space:pre-wrap;animation:unfold .6s var(--ease);box-shadow:0 8px 20px -10px rgba(150,40,90,.4)}
 .lock-screen{text-align:center;padding:20px}
 .lock-screen .big{font-size:56px;animation:float 3s ease-in-out infinite}
-.pin-input{margin:12px auto;display:block;width:200px;text-align:center;padding:10px;border-radius:12px;border:2px solid var(--p300);background:var(--p50);font-size:18px;letter-spacing:6px;outline:none}
+.pin-input{margin:12px auto;display:block;width:200px;text-align:center;padding:10px;border-radius:12px;border:2px solid var(--p300);background:var(--p50);font-size:18px;color:var(--ink);letter-spacing:6px;outline:none}
 .pin-input:focus{border-color:var(--p500);box-shadow:0 0 0 4px var(--p100)}
 .shake{animation:shake .4s}
 .timeline{position:relative;padding-left:22px}

@@ -557,7 +557,7 @@ function appLetters(b) { letterList(b, C.letters, 'letters', 'open when… (no p
 
 function appClassified(b) {
   if (sessionStorage.getItem('unlocked')) return letterList(b, C.secrets, 'classified 🔓', 'access granted. top secret. eyes only: inder.');
-  b.innerHTML = `<div class="lock-screen"><div class="big">🔒</div><div class="app-h">restricted access</div><div class="app-sub">enter passcode · hint: ${esc(C.classifiedHint)}</div><input class="pin-input" id="pin" maxlength="8" inputmode="numeric" placeholder="••••"><button class="btn-pink" id="pu">unlock</button><p class="app-sub" id="pm" style="margin-top:12px"></p></div>`;
+  b.innerHTML = `<div class="lock-screen"><div class="big">🔒</div><div class="app-h">restricted access</div><div class="app-sub">enter passcode · hint: ${esc(C.classifiedHint)}</div><input class="pin-input" id="pin" type="tel" autocomplete="off" maxlength="8" inputmode="numeric" placeholder="••••"><button class="btn-pink" id="pu">unlock</button><p class="app-sub" id="pm" style="margin-top:12px"></p></div>`;
   let tries = 0;
   const go = () => {
     const v = $('#pin', b).value.trim();
