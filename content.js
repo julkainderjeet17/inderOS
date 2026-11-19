@@ -81,7 +81,21 @@ window.CONTENT = {
     "💆 coupon: 10 minute head massage",
     "🧸 a teddy bear hug has been sent to your location",
     "⭐ fun fact: you're my favourite person in the universe",
-    "🍫 coupon: chocolate of your choice"
+    "🍫 coupon: chocolate of your choice",
+    "🎵 go play udaarian. that's an order.",
+    "📞 coupon: one long call where i just listen",
+    "🌹 one rose, delivered next time i see you",
+    "☕ coupon: i make the chai/coffee, you relax",
+    "🛍️ coupon: i carry all the shopping bags. no complaints.",
+    "💌 i was thinking about you while making this. (always.)",
+    "🍜 coupon: midnight maggi date",
+    "📸 coupon: i'll take 50 photos until you like one",
+    "🙈 secret: i still get nervous around you sometimes",
+    "🚗 coupon: a long drive, your playlist",
+    "🧁 coupon: one dessert of your choice, no sharing",
+    "✨ reminder: the distance is temporary. us is permanent.",
+    "🫶 you just unlocked: +1000 love points",
+    "🎀 coupon: you win the next argument automatically"
   ],
 
   // shown as cute popups while she uses the OS
@@ -98,7 +112,7 @@ window.CONTENT = {
 
   // daily login reward — one per day, cycles through
   daily: [
-    { emoji: "🌸", text: "good morning! today's reminder: you are my favourite thought." },
+    { emoji: "🌸", text: "today's reminder: you are my favourite thought." },
     { emoji: "📸", text: "today's memory: that time we got lost and it became the best day." },
     { emoji: "🎁", text: "today's surprise: a coupon for one (1) unlimited cuddle session." },
     { emoji: "💌", text: "today's message: i'd choose you in every universe." },

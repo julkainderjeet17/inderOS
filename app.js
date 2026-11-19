@@ -324,10 +324,21 @@ APP.reward = { id: 'reward', name: 'daily gift', sub: 'your login reward', w: 36
   b.innerHTML = `<div class="reward"><div class="app-h">today's gift for you</div><div class="app-sub">come back tomorrow for a new one</div><span class="gift" id="rg">🎁</span><p class="app-sub">tap to open</p></div>`;
   $('#rg', b).onclick = e => {
     e.target.classList.add('open'); confetti(60);
-    setTimeout(() => b.innerHTML = `<div class="reward"><div class="big">${r.emoji}</div><p style="font-size:17px;margin:12px 0;font-family:Caveat;font-size:26px;color:var(--p600)">${esc(r.text)}</p><span class="streak">🔥 ${s} day login streak</span></div>`, 600);
+    setTimeout(() => b.innerHTML = `<div class="reward"><div class="big">${r.emoji}</div><p style="margin:12px 0;font-family:Caveat;font-size:26px;color:var(--p600)">${greeting()}, ${esc(C.herName)}!<br>${esc(r.text)}</p><p class="app-sub">bonus: ${esc(nextSurprise())}</p><span class="streak">🔥 ${s} day login streak</span></div>`, 600);
   };
 } };
 ICONS.reward = ICONS.surprise;
+function greeting() {
+  const h = new Date().getHours();
+  return h < 5 ? 'hey night owl' : h < 12 ? 'good morning' : h < 17 ? 'good afternoon' : h < 21 ? 'good evening' : 'hey sleepyhead';
+}
+// shuffled deck: never repeats a surprise until all have been seen (remembered across visits)
+function nextSurprise() {
+  let deck = store.get('surpriseDeck', []).filter(k => k < C.surprises.length);
+  if (!deck.length) { deck = C.surprises.map((_, k) => k).sort(() => Math.random() - .5); const last = store.get('lastSurprise'); if (deck[0] === last && deck.length > 1) deck.push(deck.shift()); }
+  const k = deck.shift(); store.set('surpriseDeck', deck); store.set('lastSurprise', k);
+  return C.surprises[k];
+}
 
 /* ---------------- CONTEXT MENU ---------------- */
 function setupContext() {
@@ -592,7 +603,7 @@ function appSurprise(b) {
     g.classList.add('open'); confetti(50);
     setTimeout(() => {
       const o = $('#so', b); o.style.animation = 'none'; void o.offsetWidth; o.style.animation = '';
-      o.innerHTML = `<b>${esc(rand(C.surprises))}</b><br><button class="btn-soft" id="sa" style="margin-top:12px">another one</button>`;
+      o.innerHTML = `<b>${esc(nextSurprise())}</b><br><button class="btn-soft" id="sa" style="margin-top:12px">another one</button>`;
       $('#sa', b).onclick = () => { g.classList.remove('open'); g.style.animation = 'pop .5s var(--ease)'; o.textContent = 'click the gift'; };
     }, 650);
   };
