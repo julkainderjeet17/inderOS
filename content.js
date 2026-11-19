@@ -6,9 +6,9 @@ window.CONTENT = {
   herName: "inder",
   myName: "krish",
   // the day you got together (YYYY-MM-DD) – used for the "days together" widget
-  anniversary: "2025-02-14",
+  anniversary: "2026-03-12",
   // PIN for the "classified" app (hint shown on lock screen)
-  classifiedPin: "1402",
+  classifiedPin: "1203",
   classifiedHint: "the day it all started (DDMM)",
 
   reasons: [
@@ -58,11 +58,10 @@ window.CONTENT = {
   ],
 
   dates: [
-    { date: "2025-02-14", title: "where it all began", note: "the best decision i ever made" },
-    { date: "2025-03-08", title: "first movie together", note: "i didn't watch the movie. i watched you." },
-    { date: "2025-08-21", title: "your birthday", note: "the world got lucky that day" },
-    { date: "2026-02-14", title: "1 year of us", note: "and counting forever" },
-    { date: "2027-02-14", title: "2 years of us", note: "countdown is on" }
+    { date: "2026-03-12", title: "where it all began", note: "the best decision i ever made" },
+    { date: "2026-09-12", title: "6 months of us", note: "half a year down, forever to go" },
+    { date: "2027-03-12", title: "1 year of us", note: "countdown is on" },
+    { date: "2028-03-12", title: "2 years of us", note: "and counting forever" }
   ],
 
   notes: [
